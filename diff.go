@@ -303,6 +303,10 @@ type TableDiff struct {
 	supported    bool
 }
 
+func (td *TableDiff) AlterClauses() []TableAlterClause {
+	return td.alterClauses
+}
+
 // ObjectKey returns a value representing the type and name of the table being
 // diff'ed. The type is always ObjectTypeTable. The name will be the From side
 // table, unless the diffType is DiffTypeCreate, in which case the To side
