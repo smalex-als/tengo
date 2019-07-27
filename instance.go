@@ -844,12 +844,13 @@ func (instance *Instance) querySchemaTables(schema string) ([]*Table, error) {
 		ColumnName string         `db:"column_name"`
 		SubPart    sql.NullInt64  `db:"sub_part"`
 		Comment    sql.NullString `db:"index_comment"`
+		IndexType  string         `db:"index_type"`
 	}
 	query = `
 		SELECT   index_name AS index_name, table_name AS table_name,
 		         non_unique AS non_unique, seq_in_index AS seq_in_index,
 		         column_name AS column_name, sub_part AS sub_part,
-		         index_comment AS index_comment
+		         index_comment AS index_comment, index_type AS index_type
 		FROM     statistics
 		WHERE    table_schema = ?`
 	if err := db.Select(&rawIndexes, query, schema); err != nil {
